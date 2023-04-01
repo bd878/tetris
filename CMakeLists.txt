@@ -13,6 +13,8 @@ else()
   message(STATUS "SDL2 not found")
 endif()
 
+add_library(Game Game.cpp)
+target_link_libraries(Game SDL2)
 add_executable(tetris main.cpp)
 
-target_link_libraries(tetris SDL2)
+target_link_libraries(tetris SDL2 Game)
