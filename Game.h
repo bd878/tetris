@@ -22,5 +22,9 @@ private:
   SDL_Window* _window;
   SDL_Renderer* _renderer;
 
+  SDL_Texture* _texture;
+  SDL_Rect _sourceRectangle;
+  SDL_Rect _targetRectangle;
+
   bool _running;
 };
