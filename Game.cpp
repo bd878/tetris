@@ -36,9 +36,9 @@ bool Game::init(const std::string& title, int xpos, int ypos,
   std::cout << "init success" << std::endl;
   _running = true;
 
-  SDL_Surface* tempSurface = SDL_LoadBMP("../assets/rider.bmp");
+  SDL_Surface* tempSurface = SDL_LoadBMP("../assets/animate.bmp");
   if (tempSurface == NULL) {
-    std::cerr << "unable to load image assets/rider.bmp! SDL Error:"
+    std::cerr << "unable to load image assets/animate.bmp! SDL Error:"
       << SDL_GetError() << std::endl;
     return false;
   }
@@ -50,15 +50,15 @@ bool Game::init(const std::string& title, int xpos, int ypos,
     return false;
   }
 
-  SDL_FreeSurface(tempSurface);
-
-  SDL_QueryTexture(_texture, NULL, NULL,
-    &_sourceRectangle.w, &_sourceRectangle.h);
+  _sourceRectangle.w = 128;
+  _sourceRectangle.h = 82;
 
   _targetRectangle.x = _sourceRectangle.x = 0;
   _targetRectangle.y = _sourceRectangle.y = 0;
   _targetRectangle.w = _sourceRectangle.w;
   _targetRectangle.h = _sourceRectangle.h;
+
+  SDL_FreeSurface(tempSurface);
 
   return true;
 }
@@ -81,6 +81,10 @@ void Game::handleEvents() {
         break;
     }
   }
+}
+
+void Game::update() {
+  _sourceRectangle.x = 128 * int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Game::clean() {

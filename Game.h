@@ -12,7 +12,7 @@ public:
   bool init(const std::string&, int, int, int, int, int);
 
   void render();
-  void update() {};
+  void update();
   void handleEvents();
   void clean();
 
