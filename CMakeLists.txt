@@ -6,15 +6,15 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_EXTENSIONS OFF)
 set(CMAKE_STANDARD_REQUIRED ON)
 
-find_package(SDL2 REQUIRED)
+find_package(SDL2 REQUIRED COMPONENTS SDL2_image)
 if(SDL2_FOUND)
-  message(STATUS "SDL2 found")
+  message(STATUS "SDL2 found witn libraries")
 else()
   message(STATUS "SDL2 not found")
 endif()
 
 add_library(Game Game.cpp)
-target_link_libraries(Game SDL2)
+target_link_libraries(Game PUBLIC SDL2 SDL2_image)
 add_executable(tetris main.cpp)
 
 target_link_libraries(tetris SDL2 Game)

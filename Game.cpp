@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 bool Game::init(const std::string& title, int xpos, int ypos,
   int width, int height, int flags) {
@@ -31,14 +32,14 @@ bool Game::init(const std::string& title, int xpos, int ypos,
   }
 
   std::cout << "Renderer created successfully" << std::endl;
-  SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+  SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
 
   std::cout << "init success" << std::endl;
   _running = true;
 
-  SDL_Surface* tempSurface = SDL_LoadBMP("../assets/animate.bmp");
+  SDL_Surface* tempSurface = IMG_Load("../assets/animate-alpha.png");
   if (tempSurface == NULL) {
-    std::cerr << "unable to load image assets/animate.bmp! SDL Error:"
+    std::cerr << "unable to load image assets/animate-alpha.png! SDL Error:"
       << SDL_GetError() << std::endl;
     return false;
   }
@@ -65,8 +66,9 @@ bool Game::init(const std::string& title, int xpos, int ypos,
 
 void Game::render() {
   SDL_RenderClear(_renderer);
-  SDL_RenderCopy(_renderer, _texture, &_sourceRectangle,
-    &_targetRectangle);
+  SDL_RenderCopyEx(_renderer, _texture, &_sourceRectangle,
+    &_targetRectangle, 0, 0, SDL_FLIP_HORIZONTAL)
+;
   SDL_RenderPresent(_renderer);
 }
 
