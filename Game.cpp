@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 bool Game::init(const std::string& title, int xpos, int ypos,
   int width, int height, int flags) {
@@ -37,37 +36,17 @@ bool Game::init(const std::string& title, int xpos, int ypos,
   std::cout << "init success" << std::endl;
   _running = true;
 
-  SDL_Surface* tempSurface = IMG_Load("../assets/animate-alpha.png");
-  if (tempSurface == NULL) {
-    std::cerr << "unable to load image assets/animate-alpha.png! SDL Error:"
-      << SDL_GetError() << std::endl;
-    return false;
-  }
-
-  _texture = SDL_CreateTextureFromSurface(_renderer, tempSurface);
-  if (_texture == NULL) {
-    std::cerr << "unable to create texture from surface"
-      << SDL_GetError() << std::endl;
-    return false;
-  }
-
-  _sourceRectangle.w = 128;
-  _sourceRectangle.h = 82;
-
-  _targetRectangle.x = _sourceRectangle.x = 0;
-  _targetRectangle.y = _sourceRectangle.y = 0;
-  _targetRectangle.w = _sourceRectangle.w;
-  _targetRectangle.h = _sourceRectangle.h;
-
-  SDL_FreeSurface(tempSurface);
+  _textureManager.load("../assets/animate-alpha.png", "animate", _renderer);
 
   return true;
 }
 
 void Game::render() {
   SDL_RenderClear(_renderer);
-  SDL_RenderCopyEx(_renderer, _texture, &_sourceRectangle,
-    &_targetRectangle, 0, 0, SDL_FLIP_HORIZONTAL)
+
+  _textureManager.draw("animate", 0, 0, 128, 82, _renderer);
+  _textureManager.drawFrame("animate", 100, 100, 128, 82, 1,
+    _currentFrame, _renderer);
 ;
   SDL_RenderPresent(_renderer);
 }
@@ -86,7 +65,7 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-  _sourceRectangle.x = 128 * int(((SDL_GetTicks() / 100) % 6));
+  _sourceRectangle.x = int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Game::clean() {

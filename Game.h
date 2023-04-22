@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
+#include "TextureManager.h"
+
 class Game
 {
 public:
@@ -22,9 +24,11 @@ private:
   SDL_Window* _window;
   SDL_Renderer* _renderer;
 
-  SDL_Texture* _texture;
   SDL_Rect _sourceRectangle;
   SDL_Rect _targetRectangle;
+
+  int _currentFrame;
+  TextureManager _textureManager;
 
   bool _running;
 };

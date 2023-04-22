@@ -13,8 +13,10 @@ else()
   message(STATUS "SDL2 not found")
 endif()
 
+add_library(TextureManager TextureManager.cpp)
 add_library(Game Game.cpp)
-target_link_libraries(Game PUBLIC SDL2 SDL2_image)
+target_link_libraries(TextureManager PUBLIC SDL2 SDL2_image)
+target_link_libraries(Game PUBLIC TextureManager)
 add_executable(tetris main.cpp)
 
-target_link_libraries(tetris SDL2 Game)
+target_link_libraries(tetris SDL2 Game TextureManager)
