@@ -36,7 +36,9 @@ bool Game::init(const std::string& title, int xpos, int ypos,
   std::cout << "init success" << std::endl;
   _running = true;
 
-  _textureManager.load("../assets/animate-alpha.png", "animate", _renderer);
+  if (!TheTextureManager::Instance()->load("../assets/animate-alpha.png", "animate", _renderer)) {
+    return false;
+  }
 
   return true;
 }
@@ -44,10 +46,10 @@ bool Game::init(const std::string& title, int xpos, int ypos,
 void Game::render() {
   SDL_RenderClear(_renderer);
 
-  _textureManager.draw("animate", 0, 0, 128, 82, _renderer);
-  _textureManager.drawFrame("animate", 100, 100, 128, 82, 1,
+  TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, _renderer);
+  TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1,
     _currentFrame, _renderer);
-;
+
   SDL_RenderPresent(_renderer);
 }
 

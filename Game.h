@@ -28,7 +28,6 @@ private:
   SDL_Rect _targetRectangle;
 
   int _currentFrame;
-  TextureManager _textureManager;
 
   bool _running;
 };
