@@ -11,6 +11,9 @@ bool Game::init(const std::string& title, int xpos, int ypos,
     return false;
   }
 
+  _go.load(100, 100, 128, 82, "animate");
+  _player.load(300, 300, 128, 82, "animate");
+
   std::cout << "SDL init success\n" << std::endl;
   _window = SDL_CreateWindow(title.c_str(), xpos, ypos,
     width, height, flags);
@@ -46,9 +49,8 @@ bool Game::init(const std::string& title, int xpos, int ypos,
 void Game::render() {
   SDL_RenderClear(_renderer);
 
-  TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, _renderer);
-  TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1,
-    _currentFrame, _renderer);
+  _go.draw(_renderer);
+  _player.draw(_renderer);
 
   SDL_RenderPresent(_renderer);
 }
@@ -67,7 +69,8 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-  _sourceRectangle.x = int(((SDL_GetTicks() / 100) % 6));
+  _go.update();
+  _player.update();
 }
 
 void Game::clean() {

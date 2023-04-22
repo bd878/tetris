@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "SDL2/SDL.h"
 #include <stdio.h>
 
 Game* g_game = 0;
@@ -12,6 +13,8 @@ int main(int argc, char* argv[]) {
     g_game->handleEvents();
     g_game->update();
     g_game->render();
+
+    SDL_Delay(10);
   }
   g_game->clean();
 

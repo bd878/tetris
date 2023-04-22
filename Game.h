@@ -4,6 +4,8 @@
 #include <string>
 
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game
 {
@@ -30,4 +32,7 @@ private:
   int _currentFrame;
 
   bool _running;
+
+  GameObject _go;
+  Player _player;
 };
