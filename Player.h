@@ -19,9 +19,4 @@ public:
     _x = 10;
     _y = 20;
   }
-
-  void clean() {
-    GameObject::clean();
-    std::cout << "clean player";
-  }
 };

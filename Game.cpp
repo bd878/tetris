@@ -1,7 +1,11 @@
-#include "Game.h"
 #include <iostream>
 #include <string>
 #include <SDL2/SDL.h>
+
+#include "Game.h"
+#include "GameObject.h"
+#include "Player.h"
+#include "Enemy.h"
 
 bool Game::init(const std::string& title, int xpos, int ypos,
   int width, int height, int flags) {
@@ -11,8 +15,17 @@ bool Game::init(const std::string& title, int xpos, int ypos,
     return false;
   }
 
-  _go.load(100, 100, 128, 82, "animate");
-  _player.load(300, 300, 128, 82, "animate");
+  _go = new GameObject();
+  _player = new Player();
+  _enemy = new Enemy();
+
+  _gameObjects.push_back(_go);
+  _gameObjects.push_back(_player);
+  _gameObjects.push_back(_enemy);
+
+  _enemy->load(0, 0, 128, 82, "animate");
+  _go->load(100, 100, 128, 82, "animate");
+  _player->load(300, 300, 128, 82, "animate");
 
   std::cout << "SDL init success\n" << std::endl;
   _window = SDL_CreateWindow(title.c_str(), xpos, ypos,
@@ -49,8 +62,9 @@ bool Game::init(const std::string& title, int xpos, int ypos,
 void Game::render() {
   SDL_RenderClear(_renderer);
 
-  _go.draw(_renderer);
-  _player.draw(_renderer);
+  for (std::vector<GameObject*>::size_type i = 0; i != _gameObjects.size(); i++) {
+    _gameObjects[i]->draw(_renderer);
+  }
 
   SDL_RenderPresent(_renderer);
 }
@@ -69,8 +83,9 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-  _go.update();
-  _player.update();
+  for (std::vector<GameObject*>::size_type i = 0; i != _gameObjects.size(); i++) {
+    _gameObjects[i]->update();
+  }
 }
 
 void Game::clean() {
@@ -82,4 +97,10 @@ void Game::clean() {
   _renderer = NULL;
 
   SDL_Quit();
+}
+
+void Game::draw() {
+  for (std::vector<GameObject*>::size_type i = 0; i != _gameObjects.size(); i++) {
+    _gameObjects[i]->draw(_renderer);
+  }
 }
