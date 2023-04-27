@@ -12,9 +12,16 @@
 class Game
 {
 public:
-  Game() {}
-  ~Game() {}
-
+  static Game* Instance()
+  {
+    if (_instance == 0)
+    {
+      _instance = new Game();
+      return _instance;
+    }
+    return _instance;
+  }
+public:
   bool init(const std::string&, int, int, int, int, int);
 
   void render();
@@ -25,7 +32,13 @@ public:
 
   bool running() { return _running; }
 
+  SDL_Renderer* GetRenderer() const { return _renderer; }
+
 private:
+  Game();
+
+  static Game* _instance;
+
   SDL_Window* _window;
   SDL_Renderer* _renderer;
 
@@ -36,9 +49,7 @@ private:
 
   bool _running;
 
-  GameObject* _go;
-  GameObject* _player;
-  GameObject* _enemy;
-
   std::vector<GameObject*> _gameObjects;
 };
+
+typedef Game TheGame;

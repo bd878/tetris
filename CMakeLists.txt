@@ -17,7 +17,9 @@ add_library(Entities
   STATIC
     GameObject.cpp
     GameObject.h
-    Player.cpp
+    SDLGameObject.h
+    SDLGameObject.cpp
+    LoaderParams.h
     Player.h
     Enemy.cpp
     Enemy.h

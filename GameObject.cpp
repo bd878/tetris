@@ -1,14 +1,15 @@
 #include "SDL2/SDL.h"
+#include "LoaderParams.h"
 #include "TextureManager.h"
 #include "GameObject.h"
 
-void GameObject::load(int x, int y, int width, int height, std::string textureID)
+GameObject::GameObject(const LoaderParams* params)
 {
-  _x = x;
-  _y = y;
-  _width = width;
-  _height = height;
-  _textureID = textureID;
+  _x = params->GetX();
+  _y = params->GetY();
+  _width = params->GetWidth();
+  _height = params->GetHeight();
+  _textureID = params->GetTextureID();
 
   _currentRow = 1;
   _currentFrame = 1;

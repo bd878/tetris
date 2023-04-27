@@ -1,22 +1,26 @@
 #pragma once
 
-#include "GameObject.h"
+#include "SDLGameObject.h"
+#include "LoaderParams.h"
 #include <string>
 #include <iostream>
 
-class Player : public GameObject
+class Player : public SDLGameObject
 {
 public:
-  void load(int x, int y, int width, int height, std::string textureID);
+  PLayer(const LoaderParams* params) : SDLGameObject(params) {};
 
-  void draw(SDL_Renderer* renderer) {
-    GameObject::draw(renderer);
-    std::cout << "draw player";
+  virtual void draw()
+  {
+    SDLGameObject::draw();
   }
 
-  void update() {
-    std::cout << "update player";
-    _x = 10;
-    _y = 20;
+  virtual void update()
+  {
+    _x -= 1;
+    _currentFrame = int((SDL_GetTicks() / 100) % 6);
   }
+
+  virtual void clean()
+  {}
 };

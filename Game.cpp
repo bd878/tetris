@@ -3,9 +3,12 @@
 #include <SDL2/SDL.h>
 
 #include "Game.h"
+#include "LoaderParams.h"
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+
+Game* Game::_instance = 0;
 
 bool Game::init(const std::string& title, int xpos, int ypos,
   int width, int height, int flags) {
@@ -15,17 +18,8 @@ bool Game::init(const std::string& title, int xpos, int ypos,
     return false;
   }
 
-  _go = new GameObject();
-  _player = new Player();
-  _enemy = new Enemy();
-
-  _gameObjects.push_back(_go);
-  _gameObjects.push_back(_player);
-  _gameObjects.push_back(_enemy);
-
-  _enemy->load(0, 0, 128, 82, "animate");
-  _go->load(100, 100, 128, 82, "animate");
-  _player->load(300, 300, 128, 82, "animate");
+  _gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
+  _gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
 
   std::cout << "SDL init success\n" << std::endl;
   _window = SDL_CreateWindow(title.c_str(), xpos, ypos,
