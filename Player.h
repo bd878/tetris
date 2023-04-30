@@ -8,19 +8,14 @@
 class Player : public SDLGameObject
 {
 public:
-  PLayer(const LoaderParams* params) : SDLGameObject(params) {};
+  Player(const LoaderParams* params) : SDLGameObject(params) {};
 
   virtual void draw()
   {
     SDLGameObject::draw();
   }
 
-  virtual void update()
-  {
-    _x -= 1;
-    _currentFrame = int((SDL_GetTicks() / 100) % 6);
-  }
+  virtual void update();
 
-  virtual void clean()
-  {}
+  virtual void clean();
 };

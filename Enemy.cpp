@@ -1,10 +1,10 @@
 #include "Enemy.h"
 
-#include "SDL2/SDL.h"
-
 void Enemy::update()
 {
-  _y += 1;
-  _x += 1;
-  _currentFrame = int(((SDL_GetTicks() / 100) % 6));
+  _position.SetX(_position.GetX() + 1);
+  _position.SetY(_position.GetY() + 1);
 }
+
+void Enemy::clean()
+{}

@@ -15,14 +15,17 @@ endif()
 
 add_library(Entities
   STATIC
-    GameObject.cpp
     GameObject.h
     SDLGameObject.h
     SDLGameObject.cpp
     LoaderParams.h
     Player.h
-    Enemy.cpp
+    Player.cpp
     Enemy.h
+    Enemy.cpp
+    TextureManager.cpp
+    TextureManager.h
+    Vector2D.h
   )
 
 add_library(TextureManager TextureManager.cpp)

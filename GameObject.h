@@ -5,15 +5,15 @@
 #include <iostream>
 #include <string>
 
-class GameObject {
+class GameObject
+{
 public:
-  virtual void draw(SDL_Renderer* renderer) = 0;
+  virtual void draw() = 0;
   virtual void update() = 0;
   virtual void clean() = 0;
 
 protected:
-  GameObject(const LoaderParams* params);
-  virtual ~GameObject() {}
+  virtual ~GameObject() = default;
 
   std::string _textureID;
 

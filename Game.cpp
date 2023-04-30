@@ -57,7 +57,7 @@ void Game::render() {
   SDL_RenderClear(_renderer);
 
   for (std::vector<GameObject*>::size_type i = 0; i != _gameObjects.size(); i++) {
-    _gameObjects[i]->draw(_renderer);
+    _gameObjects[i]->draw();
   }
 
   SDL_RenderPresent(_renderer);
@@ -95,6 +95,6 @@ void Game::clean() {
 
 void Game::draw() {
   for (std::vector<GameObject*>::size_type i = 0; i != _gameObjects.size(); i++) {
-    _gameObjects[i]->draw(_renderer);
+    _gameObjects[i]->draw();
   }
 }
