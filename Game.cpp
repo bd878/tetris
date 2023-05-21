@@ -4,6 +4,7 @@
 
 #include "Game.h"
 #include "LoaderParams.h"
+#include "InputHandler.h"
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -17,6 +18,8 @@ bool Game::init(const std::string& title, int xpos, int ypos,
       << std::endl;
     return false;
   }
+
+  TheInputHandler::Instance()->initialiseJoysticks();
 
   _gameObjects.push_back(new Player(new LoaderParams(100, 100, 128, 82, "animate")));
   _gameObjects.push_back(new Enemy(new LoaderParams(300, 300, 128, 82, "animate")));
@@ -64,16 +67,7 @@ void Game::render() {
 }
 
 void Game::handleEvents() {
-  SDL_Event event;
-  if (SDL_PollEvent(&event)) {
-    switch (event.type) {
-      case SDL_QUIT:
-        _running = false;
-        break;
-      default:
-        break;
-    }
-  }
+  TheInputHandler::Instance()->update();
 }
 
 void Game::update() {
@@ -85,11 +79,16 @@ void Game::update() {
 void Game::clean() {
   std::cout << "cleaning game" << std::endl;
 
+  TheInputHandler::Instance()->clean();
   SDL_DestroyRenderer(_renderer);
   SDL_DestroyWindow(_window);
   _window = NULL;
   _renderer = NULL;
 
+  SDL_Quit();
+}
+
+void Game::quit() {
   SDL_Quit();
 }
 

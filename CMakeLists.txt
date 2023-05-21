@@ -23,6 +23,8 @@ add_library(Entities
     Player.cpp
     Enemy.h
     Enemy.cpp
+    InputHandler.cpp
+    InputHandler.h
     TextureManager.cpp
     TextureManager.h
     Vector2D.h

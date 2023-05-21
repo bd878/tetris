@@ -29,6 +29,7 @@ public:
   void handleEvents();
   void clean();
   void draw();
+  void quit();
 
   bool running() { return _running; }
 
